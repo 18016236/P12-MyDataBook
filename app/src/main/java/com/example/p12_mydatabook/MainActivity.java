@@ -10,14 +10,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    private String[] drawerItems;
+    private ArrayList drawerItems;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     ArrayAdapter<String> aa;
@@ -35,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerList = findViewById(R.id.left_drawer);
 
-        drawerItems = new String[] { "Bio", "Vaccination", "Anniversary" };
+        drawerItems = new ArrayList();
+        drawerItems.add("Bio");
+        drawerItems.add("Vaccination");
+        drawerItems.add("Anniversary");
+        drawerItems.add("About Us");
         ab = getSupportActionBar();
 
         aa = new ArrayAdapter<String>(this,
@@ -65,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                                           // Highlight the selected item,
                                                           //  update the title, and close the drawer
                                                           drawerList.setItemChecked(position, true);
-                                                          currentTitle = drawerItems[position];
+                                                          currentTitle = (String)drawerItems.get(position);
                                                           ab.setTitle(currentTitle);
                                                           drawerLayout.closeDrawer(drawerList);
                                                       }
@@ -99,6 +108,17 @@ public class MainActivity extends AppCompatActivity {
         // Set the drawer toggle as the DrawerListener
         drawerLayout.addDrawerListener(drawerToggle);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //action
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+
+
     }
 
     @Override
@@ -124,12 +144,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    FloatingActionButton fab = findViewById(R.id.fab);
-fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    });
+
 }

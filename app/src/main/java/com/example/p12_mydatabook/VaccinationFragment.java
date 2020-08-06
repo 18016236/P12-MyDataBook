@@ -3,16 +3,20 @@ package com.example.p12_mydatabook;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,16 +69,17 @@ public class VaccinationFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_vaccination, container, false);
-        Button btnEdit = (Button)v.findViewById(R.id.btnHello);
+
+        final View v =  inflater.inflate(R.layout.fragment_vaccination, container, false);
+        Button btnEdit = (Button)v.findViewById(R.id.btnEditVacc);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater1 = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View viewDialog = inflater.inflate(R.layout.inputvacc,null);
+                final View viewDialog = inflater.inflate(R.layout.input,null);
 
-                final EditText etInput = viewDialog.findViewById(R.id.editTextInputVacc);
-                tvInput = viewDialog.findViewById(R.id.editTextInputVacc);
+                final EditText etInput = viewDialog.findViewById(R.id.editTextInput);
+                tvInput = v.findViewById(R.id.tvVacc);
 
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(VaccinationFragment.this.getActivity());
                 myBuilder.setView(viewDialog);
@@ -89,16 +94,10 @@ public class VaccinationFragment extends Fragment {
                 myBuilder.setNegativeButton("CANCEL",null);
                 AlertDialog myDialog = myBuilder.create();
                 myDialog.show();
+
             }
         });
         return v;
     }
-    FloatingActionButton fab = findViewById(R.id.fab);
-fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    });
+
 }

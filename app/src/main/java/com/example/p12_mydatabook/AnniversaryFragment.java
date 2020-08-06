@@ -3,6 +3,7 @@ package com.example.p12_mydatabook;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -65,16 +66,18 @@ public class AnniversaryFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View v =  inflater.inflate(R.layout.fragment_anniversary, container, false);
-        Button btnEdit = (Button)v.findViewById(R.id.btnHello);
+        Button btnEdit = (Button)v.findViewById(R.id.btnEditAn);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater1 = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View viewDialog = inflater.inflate(R.layout.inputanni,null);
+                View viewDialog = inflater.inflate(R.layout.input, null);
 
-                final EditText etInput = viewDialog.findViewById(R.id.editTextInputAnni);
-                tvInput = viewDialog.findViewById(R.id.textViewInput);
+                final EditText etInput = viewDialog.findViewById(R.id.editTextInput);
+                tvInput = viewDialog.findViewById(R.id.tvAnn);
 
                 AlertDialog.Builder myBuilder = new AlertDialog.Builder(AnniversaryFragment.this.getActivity());
                 myBuilder.setView(viewDialog);
@@ -86,19 +89,15 @@ public class AnniversaryFragment extends Fragment {
                         tvInput.setText(message);
                     }
                 });
-                myBuilder.setNegativeButton("CANCEL",null);
+                myBuilder.setNegativeButton("CANCEL", null);
                 AlertDialog myDialog = myBuilder.create();
                 myDialog.show();
+
+
+
             }
         });
         return v;
     }
-    FloatingActionButton fab = findViewById(R.id.fab);
-fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    });
+
 }
